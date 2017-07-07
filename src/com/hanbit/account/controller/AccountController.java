@@ -38,9 +38,9 @@ public class AccountController {
 				Vector<AccountBean> vec2 = service.findByName(JOptionPane.showInputDialog("이름을 입력하세요"));
 	            JOptionPane.showMessageDialog(null, vec2);
 				break;
-			case"4": 
+			case"4":  
 				bean = service.findByAccount(Integer.parseInt(JOptionPane.showInputDialog("계좌번호를 입력하세요")));
-	            JOptionPane.showMessageDialog(null, "");
+	            JOptionPane.showMessageDialog(null, bean);
 				break;
 			case"5":
 				int count = service.countAccount();
@@ -56,14 +56,14 @@ public class AccountController {
 			case"7": 
 				String[] foo2 = JOptionPane.showInputDialog("계좌번호/예금금액").split("/");
 				bean.setAccountNum(Integer.parseInt(foo2[0]));
-				bean.setMoney(Integer.parseInt(foo2[0]));
+				bean.setMoney(Integer.parseInt(foo2[1]));
 				service.updateDeposit(bean);
 				JOptionPane.showMessageDialog(null, "예금완료");
 				break;
 			case"8": 
 				String[] foo3 = JOptionPane.showInputDialog("계좌번호/출금금액").split("/");
 				bean.setAccountNum(Integer.parseInt(foo3[0]));
-				bean.setMoney(Integer.parseInt(foo3[0]));
+				bean.setMoney(Integer.parseInt(foo3[1]));
 				service.updateDeposit(bean);
 				JOptionPane.showMessageDialog(null, "예금완료");
 				break;

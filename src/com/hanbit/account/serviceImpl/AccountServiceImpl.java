@@ -8,8 +8,11 @@ import com.hanbit.account.service.AccountService;
 public class AccountServiceImpl implements AccountService{
 
 	Vector<AccountBean> vec;
+	AccountBean accBean;
+	
 	public AccountServiceImpl() {
 		vec = new Vector<AccountBean>(10,10);
+		accBean = new AccountBean();
 	}
 	
 	@Override
@@ -33,26 +36,33 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public void updatePW(AccountBean bean) {
-		// TODO Auto-generated method stub
-		
+		// 비밀번호 변경
+		accBean = findByAccount(bean.getAccountNum());
+		accBean.setPw(bean.getPw());
 	}
 
 	@Override
 	public void updateDeposit(AccountBean bean) {
-		// TODO Auto-generated method stub
-		
+		//예금
+		accBean = findByAccount(bean.getAccountNum());
+		accBean.setMoney(accBean.getMoney()+bean.getMoney());
 	}
 
 	@Override
 	public void updateAmount(AccountBean bean) {
-		// TODO Auto-generated method stub
+		//출금
+		accBean = findByAccount(bean.getAccountNum());
+		accBean.setMoney(accBean.getMoney()-bean.getMoney());
 		
+		System.out.println(accBean.toString());
 	}
 
 	@Override
 	public void deleteAccount(int accountNum) {
-		// TODO Auto-generated method stub
-		
+		// 계좌 해지
+		if(vec.contains(accountNum)){
+			vec.remove(accountNum);
+		}
 	}
 
 	@Override
@@ -62,16 +72,24 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public AccountBean findByAccount(int account) {
-		// TODO Auto-generated method stub
-		return null;
+		// 계좌번호조회
+		AccountBean temp = new AccountBean();
+		for(int i=0; i<vec.size(); i++){
+			if(account == vec.get(i).getAccountNum()){
+				temp = vec.get(i);
+			}
+		}
+		return temp;
 	}
 
 	@Override
 	public Vector<AccountBean> findByName(String name) {
-		// TODO Auto-generated method stub
+		// 이름검색(동명이인허용)
 		Vector<AccountBean> temp = new Vector<AccountBean>(10,10);
-		for(int i=0;i<10/*???*/;i++){
-			//if(get(i).getName.eq......)
+		for(int i=0; i<vec.size(); i++){
+			if(name.equals(vec.get(i).getName())){
+				temp.add(vec.get(i));
+			}
 		}
 		return temp;
 	}

@@ -1,7 +1,8 @@
 package com.hanbit.account.controller;
 
 import java.util.Vector;
-
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import com.hanbit.account.domain.AccountBean;
 import com.hanbit.account.service.AccountService;
@@ -31,16 +32,15 @@ public class AccountController {
 	            JOptionPane.showMessageDialog(null, "계좌 개설 성공!");
 				break;
 			case"2": 
-				Vector<AccountBean> vec = service.accountList();
+				List<AccountBean> vec = service.accountList();
 	            JOptionPane.showMessageDialog(null, vec+"\n");
 				break;
 			case"3": 
-				Vector<AccountBean> vec2 = service.findByName(JOptionPane.showInputDialog("이름을 입력하세요"));
+				List<AccountBean> vec2 = service.findByName(JOptionPane.showInputDialog("이름을 입력하세요"));
 	            JOptionPane.showMessageDialog(null, vec2);
 				break;
 			case"4":  
-				bean = service.findByAccount(Integer.parseInt(JOptionPane.showInputDialog("계좌번호를 입력하세요")));
-	            JOptionPane.showMessageDialog(null, bean);
+				JOptionPane.showMessageDialog(null, service.findByAccount(Integer.parseInt(JOptionPane.showInputDialog("계좌번호를 입력하세요"))));
 				break;
 			case"5":
 				int count = service.countAccount();
@@ -54,6 +54,7 @@ public class AccountController {
 				JOptionPane.showMessageDialog(null, "비밀번호 변경 완료");
 				break;
 			case"7": 
+				bean = new AccountBean();
 				String[] foo2 = JOptionPane.showInputDialog("계좌번호/예금금액").split("/");
 				bean.setAccountNum(Integer.parseInt(foo2[0]));
 				bean.setMoney(Integer.parseInt(foo2[1]));
@@ -61,11 +62,13 @@ public class AccountController {
 				JOptionPane.showMessageDialog(null, "예금완료");
 				break;
 			case"8": 
+				bean = new AccountBean();
 				String[] foo3 = JOptionPane.showInputDialog("계좌번호/출금금액").split("/");
 				bean.setAccountNum(Integer.parseInt(foo3[0]));
 				bean.setMoney(Integer.parseInt(foo3[1]));
-				service.updateDeposit(bean);
-				JOptionPane.showMessageDialog(null, "예금완료");
+//				service.updateAmount(bean);
+				
+				JOptionPane.showMessageDialog(null, service.checkRestMoney(bean));
 				break;
 			case"9": 
 				service.deleteAccount(Integer.parseInt(JOptionPane.showInputDialog("계좌번호")));

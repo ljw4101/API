@@ -1,6 +1,6 @@
 package com.hanbit.account.service;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.hanbit.account.domain.AccountBean;
 
@@ -15,6 +15,7 @@ public interface AccountService {
 	//getter
 	public int countAccount();
 	public AccountBean findByAccount(int account);
-	public Vector<AccountBean> findByName(String name);
-	public Vector<AccountBean> accountList();
+	public List<AccountBean> findByName(String name);
+	public List<AccountBean> accountList();
+	public String checkRestMoney(AccountBean bean);	//validation
 }
